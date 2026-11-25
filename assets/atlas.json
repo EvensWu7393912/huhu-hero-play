@@ -32,9 +32,13 @@
    "run1",
    "run2",
    "jump",
-   "attack",
+   "impact",
    "roll",
-   "hurt"
+   "hurt",
+   "ready",
+   "windup",
+   "follow",
+   "thrust"
   ]
  },
  "blob": {

@@ -1,0 +1,73 @@
+# Forest armory - flat, hand-painted game palette
+
+newmtl Iron
+Kd 0.32549 0.39608 0.45490
+illum 1
+
+newmtl Steel
+Kd 0.54118 0.63529 0.63529
+illum 1
+
+newmtl Silver
+Kd 0.82745 0.89020 0.83137
+illum 1
+
+newmtl Edge
+Kd 0.95686 0.93725 0.83922
+illum 1
+
+newmtl Verdigris
+Kd 0.26667 0.43137 0.43922
+illum 1
+
+newmtl Bronze
+Kd 0.68235 0.46667 0.24314
+illum 1
+
+newmtl Brass
+Kd 0.90196 0.70588 0.33333
+illum 1
+
+newmtl Gold
+Kd 0.96471 0.83529 0.50588
+illum 1
+
+newmtl DeepWood
+Kd 0.43922 0.24706 0.17255
+illum 1
+
+newmtl OchreWood
+Kd 0.68627 0.44314 0.25882
+illum 1
+
+newmtl Grain
+Kd 0.77255 0.57255 0.33333
+illum 1
+
+newmtl Hide
+Kd 0.47451 0.31373 0.23529
+illum 1
+
+newmtl Braid
+Kd 0.67843 0.47451 0.34118
+illum 1
+
+newmtl Jade
+Kd 0.50196 0.77647 0.65098
+illum 1
+
+newmtl Moss
+Kd 0.27059 0.42353 0.38824
+illum 1
+
+newmtl OchreSilk
+Kd 0.85490 0.56863 0.25098
+illum 1
+
+newmtl CoralSilk
+Kd 0.67843 0.34118 0.25098
+illum 1
+
+newmtl Ink
+Kd 0.28627 0.22745 0.23137
+illum 1
