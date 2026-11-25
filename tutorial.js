@@ -10,9 +10,9 @@ window.ForestTutorial = (() => {
     const startX = arena.L + 120;
     const go = touchMode ? "按住 ▶" : "按住 D 或 →";
     const jump = touchMode ? "点「跳」" : "按空格";
+    const airRoll = touchMode ? "点「滚」空翻" : "按 K 空翻";
     const attack = touchMode ? "点「砍」" : "按 J";
     let step = "move";
-    let previousJump = false;
     let lastMistakes = scene.mistakes;
     let retry = false;
     let stopped = false;
@@ -56,10 +56,15 @@ window.ForestTutorial = (() => {
       step = "pick";
     }
 
+    function onJump() {
+      if (step === "jump") spawnEncounter();
+    }
+
     function stop() {
       if (stopped) return;
       stopped = true;
       scene.events.off("postupdate", update);
+      scene.events.off("hero-jump", onJump);
       scene.events.off("shutdown", stop);
       scene.hurtHero = originalDamage;
       scene.hudTip.setVisible(true);
@@ -69,13 +74,6 @@ window.ForestTutorial = (() => {
     function update() {
       if (step === "move" && scene.body.x >= startX + 90) {
         step = "jump";
-        previousJump = scene.prev.jump;
-      }
-      if (step === "jump") {
-        if (scene.prev.jump && !previousJump && scene.body.body.velocity.y < 0) {
-          spawnEncounter();
-        }
-        previousJump = scene.prev.jump;
       }
       if (scene.kills > initialKills && step !== "done") {
         step = "done";
@@ -90,7 +88,7 @@ window.ForestTutorial = (() => {
       if (step === "move") {
         instruct("移动", go + "，向右走几步");
       } else if (step === "jump") {
-        instruct("跳跃", jump + "跳起来；在空中再按一次可二段跳");
+        instruct("跳跃", jump + "起跳，可再跳一次，也可" + airRoll);
       } else if (scene.held) {
         step = "strike";
         instruct("斩杀", "走向 duck，面朝它，靠近后" + attack);
@@ -115,6 +113,7 @@ window.ForestTutorial = (() => {
     }
 
     scene.events.on("postupdate", update);
+    scene.events.on("hero-jump", onJump);
     scene.events.once("shutdown", stop);
     update();
     return { stop };
