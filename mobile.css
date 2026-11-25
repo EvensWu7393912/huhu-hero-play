@@ -1,0 +1,82 @@
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  background: #1b2233;
+  color: #fff5dc;
+  font-family: system-ui, sans-serif;
+}
+
+#stage {
+  position: fixed;
+  inset: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px)
+         env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+}
+
+#game { width: 100%; height: 100%; }
+#game canvas { display: block; }
+
+button {
+  min-height: 44px;
+  border: 2px solid #bfa678;
+  border-radius: 7px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+button:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+#pause {
+  position: fixed;
+  top: max(6px, env(safe-area-inset-top));
+  right: max(8px, env(safe-area-inset-right));
+  min-width: 44px;
+  color: #ffe9b7;
+  background: #19283cde;
+  font-size: 19px;
+}
+
+#menu {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: max(8px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+           max(8px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  touch-action: pan-y;
+  background: rgb(12 20 31 / 65%);
+}
+
+.card {
+  position: relative;
+  width: min(100%, 430px);
+  margin: auto;
+  padding: 20px 24px;
+  border: 1px solid #aa9679;
+  border-radius: 10px;
+  background: #202e40;
+  box-shadow: 0 5px 0 #121b26;
+}
+
+.hero {
+  float: right;
+  width: 60px;
+  height: 62px;
+  background: url("./assets/hero.webp") left top / 800% 100% no-repeat;
+}
+
+h1 { margin: 4px 0 12px; color: #ffdb8a; font: bold 28px/1.2 system-ui, sans-serif; }
+.card p { margin: 10px 0; font-size: 15px; line-height: 1.55; }
+#controls { color: #d1d8da; }
+#rotate { clear: both; color: #ffdb8a; }
+#play { margin-top: 4px; padding: 0 24px; color: #322419; background: #ffda8d; }
+#play:disabled { opacity: .65; }
