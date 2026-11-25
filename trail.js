@@ -45,6 +45,23 @@
     const title = label(640, 150, "林间石门", 24, "#f0c68f");
     const question = label(640, 199, word.w, 47, "#ffffff");
     const hint = label(640, 249, "跳到意思相符的石台上，点燃门火", 26, "#fff0d5");
+    const gateCaption = label(gateX, 471, "未点燃的篝火", 22, "#ead3ae");
+    const fireCaptions = new Map(scene.bonfires.map(fire =>
+      [fire, label(fire.x, 471, "篝火 · 靠近设置复活点", 24, "#fff0d5")]
+    ));
+    // Use the existing checkpoint and difficulty-specific refill logic for all
+    // three fires. The gate fire joins it only once the puzzle is solved.
+    const updateBonfires = scene.updateBonfires;
+    scene.updateBonfires = function () {
+      const before = this.checkpoint;
+      updateBonfires.call(this);
+      if (this.checkpoint === before) return;
+      const active = this.bonfires[this.checkpoint.lit];
+      for (const [fire, caption] of fireCaptions) {
+        caption.setText(fire === active ? "当前复活点" : "篝火 · 靠近设置复活点");
+      }
+      this.tip("已设为本局复活点，倒下后会回到这里", 3800);
+    };
 
     const choices = [firstPlatformX, secondPlatformX].map((x, i) => {
       const correct = (i === 0) === correctFirst;
@@ -77,10 +94,14 @@
       scene.walls.remove(barrier, true, true);
       seal.destroy();
       flame.clearTint().play("fire");
+      const gateFire = { x: gateX, spr: flame, lit: true };
+      scene.bonfires.push(gateFire);
+      fireCaptions.set(gateFire, gateCaption);
+      gateCaption.setText("篝火 · 靠近设置复活点");
       landing.caption.setColor("#b3efbb");
       title.setText("石门已开");
       question.setText(word.w + "  ·  " + word.g).setFontSize(36);
-      hint.setText("向右去林地迎战  →").setColor("#b3efbb");
+      hint.setText("靠近门边的篝火，设置复活点  →").setColor("#b3efbb");
       scene.ring(gateX);
     }
 

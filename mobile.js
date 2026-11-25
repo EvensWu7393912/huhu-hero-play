@@ -88,6 +88,8 @@
   function enter(nextRoute) {
     if (view !== "camp" || !scene || document.hidden) return;
     route = nextRoute;
+    window.CombatFeel.install(scene, { training: route === "training", touchMode });
+    window.WeaponMotion.install(scene);
     if (route === "training") {
       window.ForestTutorial.start(scene, {
         touchMode,
@@ -145,7 +147,7 @@
 
   document.addEventListener("DOMContentLoaded", () => {
     const game = window.__game;
-    if (!game || !window.ForestTutorial || !window.ForestProgression || !window.ForestTrail || !window.WeaponMotion) {
+    if (!game || !window.ForestTutorial || !window.ForestProgression || !window.ForestTrail || !window.WeaponMotion || !window.CombatFeel) {
       dialog("error", "游戏加载失败", "请检查试玩包是否解压完整，或重新打开页面。", "重新加载");
       return;
     }
@@ -153,7 +155,6 @@
       if (!window.__scene) return;
       scene = window.__scene;
       game.events.off("poststep", onSceneReady);
-      window.WeaponMotion.install(scene);
       stopScene();
       resize();
       get("status").hidden = true;

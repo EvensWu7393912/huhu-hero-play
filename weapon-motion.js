@@ -73,7 +73,7 @@
       this.slashSpr.setVisible(false);
       swing = key && grips[key] ? {
         key, face: this.face, time: this.now,
-        hit: this.kills > kills || this.mistakes > mistakes,
+        hit: this.kills > kills || this.mistakes > mistakes || this.forestGuardContactAt === this.now,
         recoil: this.mistakes > mistakes
       } : null;
       return result;
