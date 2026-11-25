@@ -1,82 +1,123 @@
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-
-html, body {
-  height: 100%;
-  margin: 0;
-  overflow: hidden;
-  touch-action: none;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
+:root {
+  color-scheme: dark;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #fff1d8;
   background: #1b2233;
-  color: #fff5dc;
-  font-family: system-ui, sans-serif;
 }
-
+html, body { margin: 0; height: 100%; overflow: hidden; }
+body { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
 #stage {
   position: fixed;
   inset: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px)
          env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+  touch-action: none;
 }
-
 #game { width: 100%; height: 100%; }
 #game canvas { display: block; }
 
+button, .choices label {
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
 button {
   min-height: 44px;
-  border: 2px solid #bfa678;
-  border-radius: 7px;
-  cursor: pointer;
-  font: inherit;
-  font-weight: 700;
+  color: #fff2d6;
+  background: #334039;
+  border: 1px solid #afa186;
+  border-radius: 5px;
+  padding: 6px 16px;
 }
-
-button:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+button.primary {
+  color: #372515;
+  background: linear-gradient(#ffdf97, #eeb96f);
+  border-color: #f7cf88;
+  box-shadow: inset 0 -2px 0 #b3844c;
+}
+button:hover { filter: brightness(1.08); }
+button:active { transform: translateY(1px); }
+button:disabled { opacity: .6; }
+button:focus-visible, label:focus-within { outline: 3px solid #fff1c0; outline-offset: 2px; }
 #pause {
   position: fixed;
   top: max(6px, env(safe-area-inset-top));
   right: max(8px, env(safe-area-inset-right));
-  min-width: 44px;
-  color: #ffe9b7;
-  background: #19283cde;
-  font-size: 19px;
+  width: 44px; padding: 0;
+  background: #1e2a30df;
 }
 
 #menu {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow-y: auto;
-  padding: max(8px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
-           max(8px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
-  touch-action: pan-y;
-  background: rgb(12 20 31 / 65%);
+  position: fixed; inset: 0;
+  display: flex; overflow: auto;
+  padding: max(14px, env(safe-area-inset-top)) max(5vw, env(safe-area-inset-right))
+           max(14px, env(safe-area-inset-bottom)) max(7vw, env(safe-area-inset-left));
+  background: rgb(14 21 29 / 73%);
 }
-
-.card {
-  position: relative;
-  width: min(100%, 430px);
-  margin: auto;
-  padding: 20px 24px;
-  border: 1px solid #aa9679;
-  border-radius: 10px;
-  background: #202e40;
-  box-shadow: 0 5px 0 #121b26;
+#menu[data-view="camp"] { background: #263548; }
+.camp-art {
+  position: fixed; inset: 0; pointer-events: none; overflow: hidden;
+  background: #34475b url("./assets/bg_sky.webp") center 38% / cover;
 }
-
-.hero {
-  float: right;
-  width: 60px;
-  height: 62px;
-  background: url("./assets/hero.webp") left top / 800% 100% no-repeat;
+#menu:not([data-view="camp"]) .camp-art { display: none; }
+.camp-art > div { position: absolute; }
+.mountains { inset: 18% 0 11%; background: url("./assets/bg_far.webp") center bottom / auto 87% repeat-x; }
+.forest { inset: 24% 0 8%; background: url("./assets/bg_mid.webp") center bottom / auto 77% repeat-x; }
+.soil { inset: 91% 0 -4%; background: url("./assets/ground.webp") center top / auto 100% repeat-x; }
+.traveller {
+  right: 21%; bottom: 8.5%; width: clamp(86px, 17vh, 166px); aspect-ratio: 158/162;
+  background: url("./assets/hero.webp") left / 800% 100% no-repeat;
 }
-
-h1 { margin: 4px 0 12px; color: #ffdb8a; font: bold 28px/1.2 system-ui, sans-serif; }
-.card p { margin: 10px 0; font-size: 15px; line-height: 1.55; }
-#controls { color: #d1d8da; }
-#rotate { clear: both; color: #ffdb8a; }
-#play { margin-top: 4px; padding: 0 24px; color: #322419; background: #ffda8d; }
-#play:disabled { opacity: .65; }
+.campfire {
+  right: 12%; bottom: 8.7%; width: clamp(40px, 8.4vh, 76px); aspect-ratio: 75/120;
+  background: url("./assets/fire0.webp") center bottom / contain no-repeat;
+}
+.camp-panel, .dialog {
+  position: relative; width: min(385px, 100%); flex: none;
+  border: 1px solid #c7ad77; border-radius: 6px 15px 6px 15px;
+  background: linear-gradient(125deg, #23343af7, #1e292cf2);
+  padding: clamp(17px, 3vh, 30px) clamp(19px, 3vw, 34px);
+  box-shadow: 0 4px 0 #172323, 0 14px 26px #101c254a;
+}
+.camp-panel { margin: auto 0; }
+.dialog { margin: auto; }
+h1, h2 {
+  color: #ffe2a3;
+  margin: 0 0 8px;
+  font-family: "Songti SC", "Noto Serif CJK SC", serif;
+  letter-spacing: .08em; line-height: 1.1;
+  text-shadow: 0 2px #533e2f;
+}
+h1 { font-size: clamp(36px, 7.4vh, 62px); }
+h2 { font-size: 29px; }
+p { margin: 8px 0 0; line-height: 1.45; font-size: 15px; }
+.objective { margin-bottom: 20px; }
+fieldset { border: 0; padding: 0; margin: 0 0 16px; }
+legend { color: #f0dab8; font-size: 14px; margin-bottom: 6px; padding: 0; }
+.choices { display: flex; gap: 4px; }
+.choices label {
+  display: grid; place-items: center; position: relative;
+  min-height: 44px; min-width: 55px; padding: 0 8px; flex: 1;
+  background: #253236; color: #e7ddc7; border: 1px solid #697573; border-radius: 4px;
+}
+.choices label.selected { background: #485044; color: #ffe1a3; border: 2px solid #e6bb79; }
+.choices input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+#difficulty-note, #status, .rotate { font-size: 13px; color: #e0d8c4; }
+.actions { display: flex; gap: 8px; }
+.actions button { flex: 1; }
+.dialog .actions { margin-top: 18px; }
+.rotate { display: none; }
+@media (orientation: portrait) {
+  #menu { padding-left: max(18px, env(safe-area-inset-left)); padding-right: max(18px, env(safe-area-inset-right)); }
+  .camp-panel { margin: auto auto 24vh; }
+  .rotate { display: block; }
+  .traveller { right: 43%; }
+  .campfire { right: 24%; }
+}
+@media (max-height: 390px) {
+  .objective, fieldset { margin-bottom: 9px; }
+  .camp-panel { padding-top: 12px; padding-bottom: 12px; }
+  h1 { margin-bottom: 3px; }
+}

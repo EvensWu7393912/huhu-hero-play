@@ -12,16 +12,42 @@
 <body>
   <main id="stage"><div id="game"></div></main>
   <button id="pause" type="button" aria-label="暂停游戏" hidden>Ⅱ</button>
-  <section id="menu" aria-labelledby="menu-title" hidden>
-    <div class="card">
-      <div class="hero" aria-hidden="true"></div>
-      <h1 id="menu-title">狐狐勇者</h1>
-      <p id="instructions">向右走，读怪物头上的英文。靠近武器看中文释义，点「砍」捡起意思相符的武器，再砍向那只怪物。</p>
-      <p id="controls">连点「跳」可以二段跳。「滚」躲攻击，受伤后在地面点「药」回血。</p>
-      <p id="rotate" hidden>横过手机，单词和按键会更大。屏幕锁定时也可以竖屏试玩。</p>
-      <button id="play" type="button" disabled>正在加载…</button>
+  <section id="menu" data-view="camp" aria-label="游戏菜单">
+    <div class="camp-art" aria-hidden="true">
+      <div class="mountains"></div><div class="forest"></div><div class="soil"></div>
+      <div class="traveller"></div><div class="campfire"></div>
+    </div>
+    <div id="camp" class="camp-panel">
+      <h1>狐狐勇者</h1>
+      <p class="objective">读懂怪物的单词，找到能击败它的武器。</p>
+      <fieldset id="difficulty">
+        <legend>冒险难度</legend>
+        <div class="choices">
+          <label><input name="difficulty" type="radio" value="easy">轻松</label>
+          <label><input name="difficulty" type="radio" value="normal" checked>标准</label>
+          <label><input name="difficulty" type="radio" value="hard">挑战</label>
+        </div>
+        <p id="difficulty-note" aria-live="polite">A1 至 B1 词汇 · 3 瓶药</p>
+      </fieldset>
+      <div class="actions">
+        <button type="button" id="training" disabled>练习基本操作</button>
+        <button class="primary" type="button" id="adventure" disabled>进入冒险</button>
+      </div>
+      <p id="status" role="status">正在准备营地…</p>
+      <p class="rotate">横过手机，单词和按键会更大。</p>
+    </div>
+    <div id="dialog" role="dialog" aria-labelledby="dialog-title" class="dialog" hidden>
+      <h2 id="dialog-title"></h2>
+      <p id="detail"></p>
+      <div class="actions">
+        <button type="button" id="secondary"></button>
+        <button class="primary" type="button" id="primary"></button>
+      </div>
     </div>
   </section>
+  <script src="./tutorial.js"></script>
+  <script src="./progression.js"></script>
+  <script src="./trail.js"></script>
   <script src="./mobile.js"></script>
 </body>
 </html>
