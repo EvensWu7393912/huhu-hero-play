@@ -68,7 +68,7 @@ button:focus-visible, label:focus-within { outline: 3px solid #fff1c0; outline-o
 .soil { inset: 91% 0 -4%; background: url("./assets/ground.webp") center top / auto 100% repeat-x; }
 .traveller {
   right: 21%; bottom: 8.5%; width: clamp(86px, 17vh, 166px); aspect-ratio: 158/162;
-  background: url("./assets/hero.webp") left / 800% 100% no-repeat;
+  background: url("./assets/hero.webp") left / 1200% 100% no-repeat;
 }
 .campfire {
   right: 12%; bottom: 8.7%; width: clamp(40px, 8.4vh, 76px); aspect-ratio: 75/120;
